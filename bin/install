@@ -1,7 +1,7 @@
 #!/bin/env bash
 install() {
-	local version=$1
-	local destdir=$2
+  local version=$1
+  local destdir=$2
   local filename="stack-${version}-linux-$(uname -p)"
 
   download_and_extract $version $destdir $filename
@@ -9,9 +9,9 @@ install() {
 }
 
 download_and_extract() {
-	local version=$1
-	local destdir=$2
-	local filename=$3
+  local version=$1
+  local destdir=$2
+  local filename=$3
   local url="https://github.com/commercialhaskell/stack/releases/download/v${version}/${filename}.tar.gz"
 
   curl -fLC - -o "$destdir/$version.tar.gz" $url
@@ -20,8 +20,8 @@ download_and_extract() {
 }
 
 copy_binary() {
-	local destdir=$1
-	local filename=$2
+  local destdir=$1
+  local filename=$2
 
   mkdir "$destdir/bin"
   cp "$destdir/$filename/stack" "$destdir/bin"
