@@ -1,9 +1,24 @@
 ---
 language: c
 
+addons:
+  apt:
+    packages:
+      - g++
+      - gcc
+      - git
+      - gnupg
+      - libc6-dev
+      - libffi-dev
+      - libgmp-dev
+      - make
+      - netbase
+      - xz-utils
+      - zlib1g-dev
+
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
 
 script:
-  -  asdf plugin-test stack $TRAVIS_BUILD_DIR 'stack --version'
+  - asdf plugin-test stack $TRAVIS_BUILD_DIR 'stack --version'
