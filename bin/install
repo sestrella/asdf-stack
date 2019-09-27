@@ -2,7 +2,7 @@
 install() {
   local version=$1
   local destdir=$2
-  local filename="stack-${version}-linux-$(uname -p)-static"
+  local filename="stack-${version}-linux-$(uname -p)"
 
   download_and_extract $version $destdir $filename
   copy_binary $destdir $filename
