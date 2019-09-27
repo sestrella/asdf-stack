@@ -4,7 +4,7 @@
 
 [Stack][stack] plugin for [asdf][asdf] version manager.
 
-*Note:* Only Linux is supported for now.
+**Note:** Only Linux is supported for now.
 
 ## Install
 
