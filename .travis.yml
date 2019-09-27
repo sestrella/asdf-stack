@@ -1,0 +1,9 @@
+---
+language: c
+
+before_script:
+  - git clone https://github.com/asdf-vm/asdf.git asdf
+  - . asdf/asdf.sh
+
+script:
+  -  asdf plugin-test stack $TRAVIS_BUILD_DIR 'stack --version'
