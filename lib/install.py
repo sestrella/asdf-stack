@@ -10,7 +10,7 @@ import sys
 import tarfile
 import urllib.request
 
-def install(path, version):
+def install(path = os.environ['ASDF_INSTALL_PATH'], version = os.environ['ASDF_INSTALL_VERSION']):
     release = release_by_tag(f"v{version}")
     url = url_by_type(assets_by_content_type(release['assets']))
     stack_dir = download_and_extract(url, path)
@@ -49,3 +49,6 @@ def download_and_extract(url, path):
 
     os.remove(tar_path) 
     return next(iter(glob.glob(f"{path}/stack-*")))
+
+if __name__ == '__main__':
+    install()
