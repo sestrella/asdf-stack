@@ -10,8 +10,16 @@ import sys
 import tarfile
 import urllib.request
 
-def release_by_tag(owner, repo, tag):
-  url = f"https://api.github.com/repos/{owner}/{repo}/releases/tags/{tag}"
+def install(path, version):
+    release = release_by_tag(f"v{version}")
+    url = url_by_type(assets_by_content_type(release['assets']))
+    stack_dir = download_and_extract(url, path)
+    os.mkdir(f"{path}/bin")
+    shutil.copy(f"{stack_dir}/stack", f"{path}/bin/stack")
+    return f"{path}/bin/stack"
+
+def release_by_tag(tag):
+  url = f"https://api.github.com/repos/commercialhaskell/stack/releases/tags/{tag}"
   with urllib.request.urlopen(url) as f:
     return json.loads(f.read())
 
@@ -24,18 +32,15 @@ def assets_by_content_type(assets, content_type='application/x-tgz'):
     )
   )
 
-def urls_by_type(urls, system = platform.system(), machine = platform.machine()):
-    def boom(result, url):
+def url_by_type(urls, system = platform.system(), machine = platform.machine()):
+    def by_type(result, url):
         key = re.search('\-(\w+)\.tar\.gz$', url)[1]
-        result['default' if key == machine else key] = url
+        result['dynamic' if key == machine else key] = url
         return result
 
     filtered_urls = filter(lambda url: f"{system}-{machine}".lower() in url, urls)
-    return reduce(boom, filtered_urls, {})
-
-# TODO: Rename this function
-def foo(urls):
-    return urls.get('static', urls['default'])
+    urls_by_type = reduce(by_type, filtered_urls, {})
+    return urls_by_type.get('static', urls_by_type['dynamic'])
 
 def download_and_extract(url, path):
     tar_path, _ = urllib.request.urlretrieve(url, f"{path}/stack.tar.gz")
@@ -44,13 +49,3 @@ def download_and_extract(url, path):
 
     os.remove(tar_path) 
     return next(iter(glob.glob(f"{path}/stack-*")))
-
-def main():
-    path = os.environ['ASDF_INSTALL_PATH']
-    version = os.environ['ASDF_INSTALL_VERSION']
-
-    release = release_by_tag('commercialhaskell', 'stack', f"v{version}")
-    urls = urls_by_type(asset_by_content_type(release['assets']))
-    url = foo(urls_by_type(urls))
-    stack_dir = download_and_extract(url, path)
-    shutil.copy(stack_bin, f"{stack_dir}/bin/stack")
