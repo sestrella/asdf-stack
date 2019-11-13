@@ -10,9 +10,9 @@ import sys
 import tarfile
 import urllib.request
 
-def install(path = os.environ['ASDF_INSTALL_PATH'], version = os.environ['ASDF_INSTALL_VERSION']):
+def install(path, version):
     release = release_by_tag(f"v{version}")
-    url = url_by_type(assets_by_content_type(release['assets']))
+    url = url_by_type(tarball_assets(release['assets']))
     stack_dir = download_and_extract(url, path)
     os.mkdir(f"{path}/bin")
     shutil.copy(f"{stack_dir}/stack", f"{path}/bin/stack")
@@ -23,11 +23,11 @@ def release_by_tag(tag):
   with urllib.request.urlopen(url) as f:
     return json.loads(f.read())
 
-def assets_by_content_type(assets, content_type='application/x-tgz'):
+def tarball_assets(assets):
   return map(
     lambda asset: asset['browser_download_url'],
     filter(
-      lambda asset: asset['content_type'] == content_type,
+      lambda asset: asset['content_type'] == 'application/x-tgz',
       assets
     )
   )
@@ -51,4 +51,6 @@ def download_and_extract(url, path):
     return next(iter(glob.glob(f"{path}/stack-*")))
 
 if __name__ == '__main__':
-    install()
+    path = os.environ['ASDF_INSTALL_PATH']
+    version = os.environ['ASDF_INSTALL_VERSION']
+    install(path, version)

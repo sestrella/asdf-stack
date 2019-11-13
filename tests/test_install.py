@@ -15,8 +15,8 @@ class TestInstall(unittest.TestCase):
         release = lib.install.release_by_tag('v2.1.3')
         self.assertEqual(release['tag_name'], 'v2.1.3')
 
-    def test_assets_by_content_type(self):
-        urls = list(lib.install.assets_by_content_type([
+    def test_tarball_assets(self):
+        urls = list(lib.install.tarball_assets([
             {
                 'content_type': 'application/x-tgz',
                 'browser_download_url': 'stack.tar.gz'

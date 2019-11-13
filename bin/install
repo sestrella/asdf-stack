@@ -1,2 +1,5 @@
-#!/bin/env bash
-python3 $ASDF_DIR/plugins/stack/bin/install.py
+#!/usr/bin/env bash
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+
+python3 "${__root}/lib/install.py"
