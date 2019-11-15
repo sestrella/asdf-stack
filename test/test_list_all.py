@@ -6,7 +6,7 @@ import unittest.mock
 class TestListAll(unittest.TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_list_all(self, mock_stdout):
-        tags = lib.list_all.list_all()
+        lib.list_all.list_all()
         self.assertIn('2.1.1 2.1.3', mock_stdout.getvalue())
 
     def test_list_tags(self):
