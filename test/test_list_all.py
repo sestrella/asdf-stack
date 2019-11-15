@@ -7,7 +7,7 @@ class TestListAll(unittest.TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_list_all(self, mock_stdout):
         tags = lib.list_all.list_all()
-        self.assertIn('2.1.3 2.1.1', mock_stdout.getvalue())
+        self.assertIn('2.1.1 2.1.3', mock_stdout.getvalue())
 
     def test_list_tags(self):
         tags = lib.list_all.list_tags()
@@ -18,4 +18,4 @@ class TestListAll(unittest.TestCase):
             { 'name': 'v2.1.3' },
             { 'name': 'v2.1.1' }
         ])
-        self.assertEqual(versions, '2.1.3 2.1.1')
+        self.assertEqual(versions, '2.1.1 2.1.3')

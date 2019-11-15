@@ -11,8 +11,8 @@ def list_tags():
         return json.loads(response.read())
 
 def tags_to_versions(tags):
-    names = map(lambda tag: tag['name'][1:], tags)
-    return ' '.join(names)
+    names = list(map(lambda tag: tag['name'][1:], tags))
+    return ' '.join(names[::-1])
 
 if __name__ == '__main__':
     list_all()
