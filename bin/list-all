@@ -1,5 +1,14 @@
-#!/usr/bin/env bash
-__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__root="$(cd "$(dirname "${__dir}")" && pwd)"
+#!/bin/bash
+get_tags() {
+  curl -s https://api.github.com/repos/commercialhaskell/stack/tags
+}
 
-python3 "${__root}/lib/list_all.py"
+filter_versions() {
+ grep -oE '[[:digit:]](\.[[:digit:]]+){2}(-[[:alnum:]]+|\.[[:digit:]]+)?'
+}
+
+join_lines() {
+  tr '\n' ' '
+}
+
+get_tags | filter_versions | uniq | join_lines
