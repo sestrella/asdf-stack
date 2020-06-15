@@ -1,6 +1,6 @@
 # asdf-stack
 
-[![Build Status](https://travis-ci.org/sestrella/asdf-stack.svg?branch=master)](https://travis-ci.org/sestrella/asdf-stack)
+![.github/workflows/ci.yml](https://github.com/sestrella/asdf-stack/workflows/.github/workflows/ci.yml/badge.svg)
 
 [Stack][stack] plugin for [asdf][asdf] version manager.
 
