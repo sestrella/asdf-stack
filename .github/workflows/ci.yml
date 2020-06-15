@@ -2,7 +2,8 @@
 on: [push]
 
 jobs:
-  test:
+  build:
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: asdf_plugin_test
