@@ -1,18 +1,16 @@
 #!/bin/bash
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
 get_tags() {
-  local CURL="curl -s"
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    CURL="$CURL -H 'Authorization: token $GITHUB_API_TOKEN'"
-  fi
-  $CURL https://api.github.com/repos/commercialhaskell/stack/tags
+  "$SCRIPT_DIR/github_api" repos/commercialhaskell/stack/tags
 }
 
-filter_versions() {
- grep -oE '[[:digit:]](\.[[:digit:]]+){2}(-[[:alnum:]]+|\.[[:digit:]]+)?'
+select_versions() {
+  jq -r .[].name | sed s/^v//
 }
 
 join_lines() {
   tr '\n' ' '
 }
 
-get_tags | filter_versions | uniq | join_lines
+get_tags | select_versions | join_lines

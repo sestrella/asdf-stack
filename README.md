@@ -4,6 +4,12 @@
 
 [Stack][stack] plugin for [asdf][asdf] version manager.
 
+## Requirements
+
+- curl
+- jq
+- tar
+
 ## Install
 
 Run the following command:
