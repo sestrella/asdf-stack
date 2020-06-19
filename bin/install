@@ -28,9 +28,9 @@ install_static() {
   if [ -z "$ASSETS" ]; then
     echo "No static binary found"
     return 1
-  else
-    download_and_install ${ASSETS[0]}
   fi
+
+  download_and_install ${ASSETS[0]}
 }
 
 install_dynamic() {
@@ -38,31 +38,27 @@ install_dynamic() {
   if [ -z "$ASSETS" ]; then
     echo "No dynamic binary found"
     return 1
-  else
-    download_and_install ${ASSETS[0]}
   fi
+
+  download_and_install ${ASSETS[0]}
 }
 
 download_and_install() {
   if [ -d $DOWNLOAD_PATH ]; then
     echo "$DOWNLOAD_PATH already exists"
-    copy_binary
   else
     echo "Downloading $1 to $DOWNLOAD_PATH"
     mkdir -p $DOWNLOAD_PATH
     curl -sL $1 | tar -xz -C $DOWNLOAD_PATH --strip-components 1
-    copy_binary
   fi
+
+  echo "Copying binary from $DOWNLOAD_PATH to $INSTALL_PATH"
+  mkdir -p "$INSTALL_PATH/bin"
+  cp "$DOWNLOAD_PATH/stack" "$INSTALL_PATH/bin"
 }
 
 is_tar() {
   grep 'tar\.gz$'
-}
-
-copy_binary() {
-  echo "Copying binary from $DOWNLOAD_PATH to $INSTALL_PATH"
-  mkdir -p "$INSTALL_PATH/bin"
-  cp "$DOWNLOAD_PATH/stack" "$INSTALL_PATH/bin"
 }
 
 install "$(available_assets)"
