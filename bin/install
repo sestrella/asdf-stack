@@ -7,7 +7,7 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
 available_assets() {
   local TAG_URL="repos/commercialhaskell/stack/releases/tags/v$VERSION"
-  "$SCRIPT_DIR/github_api" $TAG_URL | assets_url | compatible_assets
+  "$SCRIPT_DIR/github_api" "$TAG_URL" | assets_url | compatible_assets
 }
 
 assets_url() {
@@ -15,8 +15,9 @@ assets_url() {
 }
 
 compatible_assets() {
-  local ARCH=$(uname -m)
-  grep linux | grep $ARCH
+  local ARCH
+  ARCH=$(uname -m)
+  grep linux | grep "$ARCH"
 }
 
 install() {
@@ -24,32 +25,34 @@ install() {
 }
 
 install_static() {
-  local ASSETS=$(echo "$1" | grep static | is_tar)
+  local ASSETS
+  ASSETS=$(echo "$1" | grep static | is_tar)
   if [ -z "$ASSETS" ]; then
     echo "No static binary found"
     return 1
   fi
 
-  download_and_install ${ASSETS[0]}
+  download_and_install "${ASSETS[0]}"
 }
 
 install_dynamic() {
-  local ASSETS=$(echo "$1" | grep -v gmp | is_tar)
+  local ASSETS
+  ASSETS=$(echo "$1" | grep -v gmp | is_tar)
   if [ -z "$ASSETS" ]; then
     echo "No dynamic binary found"
     return 1
   fi
 
-  download_and_install ${ASSETS[0]}
+  download_and_install "${ASSETS[0]}"
 }
 
 download_and_install() {
-  if [ -d $DOWNLOAD_PATH ]; then
+  if [ -d "$DOWNLOAD_PATH" ]; then
     echo "$DOWNLOAD_PATH already exists"
   else
     echo "Downloading $1 to $DOWNLOAD_PATH"
-    mkdir -p $DOWNLOAD_PATH
-    curl -sL $1 | tar -xz -C $DOWNLOAD_PATH --strip-components 1
+    mkdir -p "$DOWNLOAD_PATH"
+    curl -sL "$1" | tar -xz -C "$DOWNLOAD_PATH" --strip-components 1
   fi
 
   echo "Copying binary from $DOWNLOAD_PATH to $INSTALL_PATH"
