@@ -15,9 +15,9 @@ assets_url() {
 }
 
 compatible_assets() {
-  local ARCH
-  ARCH=$(uname -m)
-  grep linux | grep "$ARCH"
+  local arch
+  arch=$(uname -m)
+  grep linux | grep "$arch"
 }
 
 install() {
@@ -25,25 +25,25 @@ install() {
 }
 
 install_static() {
-  local ASSETS
-  ASSETS=$(echo "$1" | grep static | is_tar)
-  if [ -z "$ASSETS" ]; then
+  local assets
+  assets=$(echo "$1" | grep static | is_tar)
+  if [ -z "$assets" ]; then
     echo "No static binary found"
     return 1
   fi
 
-  download_and_install "${ASSETS[0]}"
+  download_and_install "${assets[0]}"
 }
 
 install_dynamic() {
-  local ASSETS
-  ASSETS=$(echo "$1" | grep -v gmp | is_tar)
-  if [ -z "$ASSETS" ]; then
+  local assets
+  assets=$(echo "$1" | grep -v gmp | is_tar)
+  if [ -z "$assets" ]; then
     echo "No dynamic binary found"
     return 1
   fi
 
-  download_and_install "${ASSETS[0]}"
+  download_and_install "${assets[0]}"
 }
 
 download_and_install() {
