@@ -1,0 +1,16 @@
+{
+  "name": "asdf-stack",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "bats test/*.bats"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sestrella/asdf-stack.git"
+  },
+  "author": "Sebastián Estrella",
+  "license": "MIT",
+  "devDependencies": {
+    "bats": "^1.1.0"
+  }
+}
