@@ -1,13 +1,21 @@
 ---
+name: CI
+
 on: [push]
 
 jobs:
   build:
-    name: CI
     runs-on: ubuntu-latest
     steps:
-      - name: Test plugin
-        uses: asdf-vm/actions/plugin-test@v1.0.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm install
+      - run: npm test
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: asdf-vm/actions/plugin-test@v1.0.0
         with:
           command: "stack --version"
         env:

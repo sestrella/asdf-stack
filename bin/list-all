@@ -1,16 +1,4 @@
 #!/bin/bash
-SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$(dirname "$(dirname "$0")")/lib/list-all.bash"
 
-get_tags() {
-  "$SCRIPT_DIR/github_api" repos/commercialhaskell/stack/tags
-}
-
-select_versions() {
-  jq -r .[].name | sed s/^v//
-}
-
-join_lines() {
-  tr '\n' ' '
-}
-
-get_tags | select_versions | join_lines
+echo $(list_tags | select_versions)
