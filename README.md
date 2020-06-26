@@ -18,5 +18,25 @@ Run the following command:
 asdf plugin-add stack https://github.com/sestrella/asdf-stack.git
 ```
 
+# Test
+
+Install Node.js via asdf:
+
+```
+asdf install
+```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Run tests:
+
+```
+npm test
+```
+
 [asdf]: https://github.com/asdf-vm/asdf
 [stack]: https://docs.haskellstack.org/en/stable/README
