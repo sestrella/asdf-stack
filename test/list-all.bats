@@ -1,3 +1,5 @@
+load 'test_helper'
+
 source "$BATS_TEST_DIRNAME/../lib/list-all.bash"
 
 print_versions() {
@@ -6,12 +8,12 @@ print_versions() {
 
 @test "list_tags" {
   run list_tags
-  [ "$status" -eq 0 ]
+  assert_success
 }
 
 @test "select_versions" {
   run print_versions
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "2.3.1" ]
-  [ "${lines[29]}" = "1.1.2" ]
+  assert_success
+  assert_output --partial '2.3.1'
+  assert_output --partial '1.1.2'
 }
