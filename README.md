@@ -6,6 +6,8 @@
 
 ## Requirements
 
+The following commands are required:
+
 - curl
 - jq
 - tar
@@ -18,7 +20,7 @@ Run the following command:
 asdf plugin-add stack https://github.com/sestrella/asdf-stack.git
 ```
 
-# Test
+## Test
 
 Install Node.js via asdf:
 
@@ -26,7 +28,7 @@ Install Node.js via asdf:
 asdf install
 ```
 
-Install dependencies:
+Install test dependencies:
 
 ```
 npm install
