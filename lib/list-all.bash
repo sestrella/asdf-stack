@@ -9,3 +9,7 @@ list_tags() {
 select_versions() {
   jq -r .[].name | sed s/^v//
 }
+
+main() {
+  echo $(list_tags | select_versions)
+}

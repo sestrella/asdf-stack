@@ -1,4 +1,4 @@
 #!/bin/bash
 source "$(dirname "$(dirname "$0")")/lib/list-all.bash"
 
-echo $(list_tags | select_versions)
+main
