@@ -1,7 +1,7 @@
-load 'test_helper'
+load 'test-helper'
 load '../lib/list-all'
 
-@test "main - prints all stack versions available" {
+@test 'prints all stack versions available' {
   run main
   assert_success
   assert_output --partial '2.3.1'

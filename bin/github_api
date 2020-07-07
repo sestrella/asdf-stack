@@ -1,6 +1,0 @@
-#!/bin/bash
-CURL="curl -s"
-if [ -n "$GITHUB_API_TOKEN" ]; then
-  CURL="$CURL -H 'Authorization: token $GITHUB_API_TOKEN'"
-fi
-$CURL "https://api.github.com/$1"
