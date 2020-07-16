@@ -1,15 +1,15 @@
 from lib.github_client import GithubClient
 from lib.list_all import list_all
-from unittest.mock import Mock
 from pathlib import Path
+from test.fixture import read_fixture
+from unittest.mock import Mock
 
-import json
 import unittest
 
 class TestListAll(unittest.TestCase):
   def test_list_all(self):
     client = GithubClient()
-    client.list_repo_tags = Mock(return_value=self.__read_json('./test/fixtures/tags.json'))
+    client.list_repo_tags = Mock(return_value=read_fixture('tags.json'))
     printer = Mock()
     list_all(client, printer)
     printer.assert_called_once_with(' '.join([
@@ -44,7 +44,3 @@ class TestListAll(unittest.TestCase):
       '2.3.0.1',
       '2.3.1'
   ]))
-
-  def __read_json(self, path):
-    with open(path, 'r') as file:
-      return json.loads(file.read())
