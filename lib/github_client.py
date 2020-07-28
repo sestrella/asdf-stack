@@ -1,3 +1,6 @@
+import json
+import urllib.request
+
 class GithubClient:
   BASE_URL = 'https://api.github.com'
 
@@ -9,12 +12,13 @@ class GithubClient:
     return __get_request(url)
 
   def get_release_by_name(self, owner, repo, tag):
-    url = f'{BASE_URL}/repos/{owner}/{repo}/releases/tags/{tag}'
-    return __get_request(url)
+    url = f'{self.BASE_URL}/repos/{owner}/{repo}/releases/tags/{tag}'
+    return self.__get_request(url)
 
-  def __get_request(url):
+  def __get_request(self, url):
     request = urllib.request.Request(url)
-    if not self.token:
+    if self.token:
       request.headers = { 'Authorization': f'token {self.token}' }
+
     with urllib.request.urlopen(request) as response:
       return json.loads(response.read())
