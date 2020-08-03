@@ -1,14 +1,12 @@
+source "${BASH_SOURCE%/*}/helper.bash"
+
 main() {
   local assets=$(available_assets | download_urls | compatible_urls)
   install "$assets"
 }
 
 available_assets() {
-  local cmd="curl -s"
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
-  fi
-  $cmd "https://api.github.com/repos/commercialhaskell/stack/releases/tags/v$ASDF_INSTALL_VERSION"
+  github_api "repos/commercialhaskell/stack/releases/tags/v$ASDF_INSTALL_VERSION"
 }
 
 download_urls() {

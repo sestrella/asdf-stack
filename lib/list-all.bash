@@ -1,13 +1,11 @@
+source "${BASH_SOURCE%/*}/helper.bash"
+
 main() {
   echo $(list_tags | select_versions)
 }
 
 list_tags() {
-  local cmd="curl -s"
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
-  fi
-  $cmd "https://api.github.com/repos/commercialhaskell/stack/tags"
+  github_api "repos/commercialhaskell/stack/tags"
 }
 
 select_versions() {
