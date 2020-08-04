@@ -14,8 +14,24 @@ download_urls() {
 }
 
 compatible_urls() {
+  local os=$(get_os)
   local arch=$(uname -m)
-  grep linux | grep $arch | grep 'tar\.gz$'
+  grep "$os" | grep "$arch" | grep 'tar\.gz$'
+}
+
+get_os() {
+  local os=$(uname)
+  case "$os" in
+    "Darwin")
+      echo "osx"
+      ;;
+    "Linux")
+      echo "linux"
+      ;;
+    *)
+      echo "Unsupported OS $os"
+      exit 1
+  esac
 }
 
 install() {
