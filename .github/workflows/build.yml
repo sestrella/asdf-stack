@@ -13,13 +13,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-python@v2
         with:
-          node-version: '12.x'
-      - run: npm install
-      - run: npm test
-        env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          python-version: '3.x'
+      - run: python -m unittest
 
   plugin-test:
     strategy:
