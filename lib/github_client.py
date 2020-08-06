@@ -8,8 +8,8 @@ class GithubClient:
     self.token = token
 
   def list_repo_tags(self, owner, repo):
-    url = f'{BASE_URL}/repos/{owner}/{repo}/tags'
-    return __get_request(url)
+    url = f'{self.BASE_URL}/repos/{owner}/{repo}/tags'
+    return self.__get_request(url)
 
   def get_release_by_name(self, owner, repo, tag):
     url = f'{self.BASE_URL}/repos/{owner}/{repo}/releases/tags/{tag}'
@@ -21,4 +21,5 @@ class GithubClient:
       request.headers = { 'Authorization': f'token {self.token}' }
 
     with urllib.request.urlopen(request) as response:
+      print(response.headers['link'])
       return json.loads(response.read())
