@@ -21,5 +21,4 @@ class GithubClient:
       request.headers = { 'Authorization': f'token {self.token}' }
 
     with urllib.request.urlopen(request) as response:
-      print(response.headers['link'])
       return json.loads(response.read())
