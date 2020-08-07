@@ -6,11 +6,7 @@
 
 ## Requirements
 
-The following commands are required:
-
-- curl
-- jq
-- tar
+- Python 3
 
 ## Install
 
@@ -22,22 +18,31 @@ asdf plugin-add stack https://github.com/sestrella/asdf-stack.git
 
 ## Test
 
-Install Node.js via asdf:
+Install Python:
 
 ```
+asdf plugin-add python
 asdf install
 ```
 
-Install test dependencies:
+Create a virtual environment:
 
 ```
-npm install
+python -m venv .venv
+```
+
+Active the virtual environment:
+
+```
+source .venv/bin/activate (bash or zsh)
+# or
+source .venv/bin/activate.fish (fish)
 ```
 
 Run tests:
 
 ```
-npm test
+python -m unittest
 ```
 
 [asdf]: https://github.com/asdf-vm/asdf
