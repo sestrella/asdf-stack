@@ -4,33 +4,20 @@ name: build
 on: [push]
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
+  python-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-python@v2
         with:
-          node-version: '12.x'
-      - run: npm install
-      - run: npm test
-        env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          python-version: '3.x'
+      - run: python -m unittest
 
-  plugin-test:
-    strategy:
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
+  asdf-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: asdf-vm/actions/plugin-test@v1.0.0
         with:
           command: "stack --version"
         env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_API_TOKEN: ${{ github.token }}

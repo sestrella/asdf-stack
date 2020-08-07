@@ -1,4 +1,2 @@
 #!/bin/bash
-source "$(dirname "$(dirname "$0")")/lib/install.bash"
-
-main
+(cd "$(dirname "$(dirname "$0")")" && python3 -m lib.install)
