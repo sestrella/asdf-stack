@@ -4,13 +4,8 @@ name: build
 on: [push]
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
+  python-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -18,16 +13,11 @@ jobs:
           python-version: '3.x'
       - run: python -m unittest
 
-  plugin-test:
-    strategy:
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
+  asdf-tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: asdf-vm/actions/plugin-test@v1.0.0
         with:
           command: "stack --version"
         env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_API_TOKEN: ${{ github.token }}
