@@ -1,5 +1,7 @@
 from lib.github_client import GithubClient
 
+import os
+
 def list_all(client, printer=print):
   tags = __list_tags(client)
   printer(__tags_to_versions(tags))
@@ -12,5 +14,6 @@ def __tags_to_versions(tags):
   return ' '.join(names[::-1])
 
 if __name__ == '__main__':
-  client = GithubClient('token')
+  token = os.getenv('GITHUB_API_TOKEN')
+  client = GithubClient(token)
   list_all(client)

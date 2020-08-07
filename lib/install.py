@@ -1,3 +1,5 @@
+from lib.github_client import GithubClient
+
 import logging
 import os
 import platform
@@ -51,3 +53,10 @@ def __install_from_url(install_dir, url):
 def __copy_file(src, dest):
   logger.info(f'Copying {src} to {dest}')
   shutil.copy(src, dest)
+
+if __name__ == '__main__':
+  token = os.getenv('GITHUB_API_TOKEN')
+  client = GithubClient(token)
+  install_dir = os.environ['ASDF_INSTALL_PATH']
+  version = os.environ['ASDF_INSTALL_VERSION']
+  install(client, install_dir, version)
