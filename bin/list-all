@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd "$(dirname "$(dirname "$0")")" && python -m lib.list_all)
+(cd "$(dirname "$(dirname "$0")")" && python3 -m lib.list_all)
