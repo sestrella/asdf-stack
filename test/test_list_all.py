@@ -1,13 +1,15 @@
-from lib.github_client import GithubClient
 from lib.list_all import list_all
-from pathlib import Path
 from unittest.mock import Mock
 
 import unittest
 
 class TestListAll(unittest.TestCase):
-  def test_list_all(self):
-    client = GithubClient()
+  def test_list_all_pagination(self):
     printer = Mock()
-    list_all(client, printer)
-    self.assertIn('2.3.1', printer.call_args.args[0])
+    tags = list_all(printer)
+    self.assertTrue(len(tags) >= 58)
+
+  def test_list_all_printer(self):
+    printer = Mock()
+    list_all(printer)
+    self.assertIn('2.3.3 2.5.0.1 2.5.1', printer.call_args.args[0])
