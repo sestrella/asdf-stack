@@ -1,6 +1,6 @@
 # asdf-stack
 
-![build](https://github.com/sestrella/asdf-stack/workflows/build/badge.svg?branch=master)
+![CI](https://github.com/sestrella/asdf-stack/workflows/CI/badge.svg)
 
 [Stack][stack] plugin for [asdf][asdf] version manager.
 
