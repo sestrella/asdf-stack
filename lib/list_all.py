@@ -1,19 +1,37 @@
-from lib.github_client import GithubClient
-
+import json
 import os
+import urllib.request
 
-def list_all(client, printer=print):
-  tags = __list_tags(client)
-  printer(__tags_to_versions(tags))
+def list_all(printer = print):
+  token = os.getenv('GITHUB_API_TOKEN')
+  tags = get_tags('https://api.github.com/repos/commercialhaskell/stack/tags', token)
+  printer(' '.join(tags[::-1]))
+  return tags
 
-def __list_tags(client):
-  return client.list_repo_tags('commercialhaskell', 'stack')
+def get_tags(url, token):
+  request = urllib.request.Request(url)
+  if token:
+    request.headers = { 'Authorization': f'token {token}' }
 
-def __tags_to_versions(tags):
-  names = list(map(lambda tag: tag['name'][1:], tags))
-  return ' '.join(names[::-1])
+  with urllib.request.urlopen(request) as response:
+    next_link = parse_links(response.headers['link']).get('next')
+    if next_link:
+      return parse_tags(response) + get_tags(next_link, token)
+
+    return parse_tags(response)
+
+def parse_links(links):
+  def parse_link(link):
+    return (link[1][6:-1], link[0][1:-1])
+
+  return dict(map(
+    lambda link: parse_link(link.split(';')),
+    links.split(',')
+  ))
+
+def parse_tags(response):
+  tags = json.loads(response.read())
+  return list(map(lambda tag: tag['name'][1:], tags))
 
 if __name__ == '__main__':
-  token = os.getenv('GITHUB_API_TOKEN')
-  client = GithubClient(token)
-  list_all(client)
+  list_all()
