@@ -12,4 +12,4 @@ class TestListAll(unittest.TestCase):
   def test_list_all_printer(self):
     printer = Mock()
     list_all(printer)
-    self.assertIn('2.3.3 2.5.0.1 2.5.1', printer.call_args.args[0])
+    self.assertIn('2.3.3 2.5.0.1 2.5.1', printer.call_args[0][0])

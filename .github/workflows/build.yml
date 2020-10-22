@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: asdf-vm/actions/plugin-test@v1
         with:
-          command: "stack --version"
+          command: stack --version
         env:
           GITHUB_API_TOKEN: ${{ github.token }}
 
@@ -33,4 +33,3 @@ jobs:
       - uses: actions/checkout@v2
       - run: python3 --version
       - run: python3 -m unittest
-
