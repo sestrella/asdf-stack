@@ -8,9 +8,11 @@ import tarfile
 import tempfile
 import urllib.request
 
+BASE_URL = 'https://github.com/commercialhaskell/stack/releases/download'
+
 def install(install_dir, version):
   with tempfile.TemporaryDirectory() as download_dir:
-    filename = f'stack-{version}-{sys.platform}-{platform.machine()}'
+    filename = f'stack-{version}-{osname()}-{platform.machine()}'
     try:
       return get_stack(install_dir, version, download_dir, f'{filename}-static')
 
@@ -20,9 +22,15 @@ def install(install_dir, version):
 
       raise e
 
+def osname():
+  os = platform.system()
+  if os == 'Darwin':
+    return 'osx'
+
+  return os.lower()
+
 def get_stack(install_dir, version, download_dir, filename):
-  url = f'https://github.com/commercialhaskell/stack/releases/download/v{version}/{filename}.tar.gz'
-  print(url)
+  url = f'{BASE_URL}/v{version}/{filename}.tar.gz'
   path, _ = urllib.request.urlretrieve(url, f'{download_dir}/stack.tar.gz')
   with tarfile.open(path) as tar:
     tar.extractall(download_dir)
