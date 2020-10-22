@@ -22,6 +22,7 @@ def install(install_dir, version):
 
 def get_stack(install_dir, version, download_dir, filename):
   url = f'https://github.com/commercialhaskell/stack/releases/download/v{version}/{filename}.tar.gz'
+  print(url)
   path, _ = urllib.request.urlretrieve(url, f'{download_dir}/stack.tar.gz')
   with tarfile.open(path) as tar:
     tar.extractall(download_dir)
