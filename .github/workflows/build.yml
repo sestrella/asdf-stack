@@ -1,11 +1,16 @@
 ---
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   python-tests:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -14,9 +19,14 @@ jobs:
       - run: python -m unittest
 
   asdf-tests:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
     steps:
-      - uses: asdf-vm/actions/plugin-test@v1.0.0
+      - uses: asdf-vm/actions/plugin-test@v1
         with:
           command: "stack --version"
         env:
