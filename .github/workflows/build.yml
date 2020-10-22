@@ -8,19 +8,19 @@ on:
     branches: [master]
 
 jobs:
-  #plugin_test:
-    #strategy:
-      #matrix:
-        #os: [macos-latest, ubuntu-latest]
+  plugin_test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
 
-    #runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-    #steps:
-      #- uses: asdf-vm/actions/plugin-test@v1
-        #with:
-          #command: stack --version
-        #env:
-          #GITHUB_API_TOKEN: ${{ github.token }}
+    steps:
+      - uses: asdf-vm/actions/plugin-test@v1
+        with:
+          command: stack --version
+        env:
+          GITHUB_API_TOKEN: ${{ github.token }}
 
   python_test:
     strategy:

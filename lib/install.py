@@ -3,7 +3,6 @@ from urllib.error import HTTPError
 import os
 import platform
 import shutil
-import sys
 import tarfile
 import tempfile
 import urllib.request
