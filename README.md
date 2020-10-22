@@ -39,6 +39,18 @@ source .venv/bin/activate (bash or zsh)
 source .venv/bin/activate.fish (fish)
 ```
 
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Run lint:
+
+```
+python -m flake8 lib/ test/
+```
+
 Run tests:
 
 ```
