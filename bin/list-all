@@ -1,2 +1,14 @@
 #!/bin/bash
-(cd "$(dirname "$(dirname "$0")")" && python3 -m lib.list_all)
+main() {
+  versions=$(get_tags | jq -r .[].name | sed "s/^v//" | tac)
+  echo $versions
+}
+
+get_tags() {
+  curl -s "https://api.github.com/repos/commercialhaskell/stack/tags"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
+then
+  main
+fi
