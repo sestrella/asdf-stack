@@ -2,7 +2,7 @@
 BASE_URL="https://github.com/commercialhaskell/stack/releases/download"
 
 main() {
-  local download_dir=$(mktemp -d --suffix=asdf-stack)
+  local download_dir=$(mktemp -dt asdf-stack-XXXX)
   local filename="stack-${ASDF_INSTALL_VERSION}-$(osname)-$(uname -m)"
 
   trap 'rm -rf "$download_dir"' EXIT

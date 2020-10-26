@@ -2,7 +2,7 @@ load "${BATS_TEST_DIRNAME}/../bin/install"
 load "helper"
 
 setup() {
-  ASDF_INSTALL_PATH=$(mktemp -d --suffix=asdf)
+  ASDF_INSTALL_PATH=$(mktemp -dt asdf-XXXX)
 }
 
 teardown() {
