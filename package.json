@@ -1,0 +1,28 @@
+{
+  "name": "asdf-stack",
+  "version": "1.0.0",
+  "description": "![CI](https://github.com/sestrella/asdf-stack/workflows/CI/badge.svg?branch=master)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "bats test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sestrella/asdf-stack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sestrella/asdf-stack/issues"
+  },
+  "homepage": "https://github.com/sestrella/asdf-stack#readme",
+  "devDependencies": {
+    "bats": "^1.2.1",
+    "bats-assert": "^2.0.0",
+    "bats-support": "^0.3.0"
+  }
+}
