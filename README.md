@@ -2,7 +2,8 @@
 
 ![CI](https://github.com/sestrella/asdf-stack/workflows/CI/badge.svg?branch=master)
 
-[Stack][stack] plugin for [asdf][asdf] version manager.
+[Stack](https://docs.haskellstack.org/en/stable/README/) plugin for
+[asdf](https://asdf-vm.com/#/) version manager.
 
 ## Install
 
