@@ -2,13 +2,24 @@
 BASE_URL="https://github.com/commercialhaskell/stack/releases/download"
 
 main() {
-  download_dir=$(mktemp -d --suffix=asdf-stack)
+  local download_dir=$(mktemp -d --suffix=asdf-stack)
+  local filename="stack-${ASDF_INSTALL_VERSION}-$(osname)-$(uname -m)"
+
   trap 'rm -rf "$download_dir"' EXIT
-  filename="stack-${ASDF_INSTALL_VERSION}-linux-$(uname -m)"
   curl -Lfs -o "$download_dir/stack.tar.gz" "${BASE_URL}/v${ASDF_INSTALL_VERSION}/${filename}.tar.gz"
   tar -C "$download_dir" -xf "${download_dir}/stack.tar.gz"
   mkdir "${ASDF_INSTALL_PATH}/bin"
   cp "${download_dir}/${filename}/stack" "${ASDF_INSTALL_PATH}/bin/stack"
+}
+
+osname() {
+  local name=$(uname -s)
+
+  if [[ "$name" == "Darwin" ]]; then
+    echo "osx"
+  else
+    echo "$name" | awk '{print tolower($0)}'
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
