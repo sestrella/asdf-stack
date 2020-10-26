@@ -4,7 +4,6 @@ BASE_URL="https://github.com/commercialhaskell/stack/releases/download"
 main() {
   local download_dir=$(mktemp -dt asdf-stack-XXXX)
   local filename="stack-${ASDF_INSTALL_VERSION}-$(osname)-$(uname -m)"
-
   trap 'rm -rf "$download_dir"' EXIT
   curl -Lfs -o "$download_dir/stack.tar.gz" "${BASE_URL}/v${ASDF_INSTALL_VERSION}/${filename}.tar.gz"
   tar -C "$download_dir" -xf "${download_dir}/stack.tar.gz"
@@ -14,7 +13,6 @@ main() {
 
 osname() {
   local name=$(uname -s)
-
   if [[ "$name" == "Darwin" ]]; then
     echo "osx"
   else

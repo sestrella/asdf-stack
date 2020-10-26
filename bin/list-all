@@ -1,11 +1,11 @@
 #!/bin/bash
 main() {
-  versions=$(get_tags | grep '"name"' | sed 's/"name": "v//' | sed 's/",//' | sort -V)
+  local versions=$(get_tags | grep '"name"' | sed 's/"name": "v//' | sed 's/",//' | sort -V)
   echo $versions
 }
 
 get_tags() {
-  cmd="curl -s"
+  local cmd="curl -fs"
   if [ -n "$GITHUB_API_TOKEN" ]; then
     cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
   fi

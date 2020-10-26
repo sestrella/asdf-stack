@@ -10,7 +10,7 @@
 Run the following command:
 
 ```
-asdf plugin-add stack https://github.com/sestrella/asdf-stack.git
+asdf plugin add stack https://github.com/sestrella/asdf-stack.git
 ```
 
 ## Test
