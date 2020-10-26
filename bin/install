@@ -1,2 +1,16 @@
 #!/bin/bash
-(cd "$(dirname "$(dirname "$0")")" && python3 -m lib.install)
+BASE_URL="https://github.com/commercialhaskell/stack/releases/download"
+
+main() {
+  download_dir=$(mktemp -d --suffix=asdf-stack)
+  trap 'rm -rf "$download_dir"' EXIT
+  filename="stack-${ASDF_INSTALL_VERSION}-linux-$(uname -m)"
+  curl -Lfs -o "$download_dir/stack.tar.gz" "${BASE_URL}/v${ASDF_INSTALL_VERSION}/${filename}.tar.gz"
+  tar -C "$download_dir" -xf "${download_dir}/stack.tar.gz"
+  mkdir "${ASDF_INSTALL_PATH}/bin"
+  cp "${download_dir}/${filename}/stack" "${ASDF_INSTALL_PATH}/bin/stack"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main
+fi
