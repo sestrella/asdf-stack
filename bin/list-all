@@ -5,10 +5,13 @@ main() {
 }
 
 get_tags() {
-  curl -s "https://api.github.com/repos/commercialhaskell/stack/tags"
+  cmd="curl -s"
+  if [ -n "$GITHUB_API_TOKEN" ]; then
+    cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
+  fi
+  $cmd "https://api.github.com/repos/commercialhaskell/stack/tags"
 }
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
-then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   main
 fi
