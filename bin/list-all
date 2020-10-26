@@ -1,6 +1,6 @@
 #!/bin/bash
 main() {
-  versions=$(get_tags | jq -r .[].name | sed "s/^v//" | tac)
+  versions=$(get_tags | jq -r .[].name | sed "s/^v//" | sort -V)
   echo $versions
 }
 
