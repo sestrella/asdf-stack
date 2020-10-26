@@ -15,6 +15,13 @@ asdf plugin-add stack https://github.com/sestrella/asdf-stack.git
 
 ## Test
 
+Install [Node.js](https://nodejs.org/en/):
+
+```
+asdf plugin add nodejs
+asdf install
+```
+
 Install dependencies:
 
 ```
