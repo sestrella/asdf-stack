@@ -40,19 +40,3 @@ jobs:
           command: stack --version
         env:
           GITHUB_API_TOKEN: ${{ github.token }}
-
-  python_build:
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/checkout@v2
-      - run: python3 --version
-      - run: python3 -m pip install -r requirements.txt
-      - run: python3 -m flake8 lib/ test/
-      - run: python3 -m unittest
-        env:
-          GITHUB_API_TOKEN: ${{ github.token }}
