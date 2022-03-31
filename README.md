@@ -1,5 +1,7 @@
 # asdf-stack
 
+**DEPRECATED - This is no longer supported, please consider using [asdf-ghcup](https://github.com/sestrella/asdf-ghcup) instead.**
+
 ![CI](https://github.com/sestrella/asdf-stack/workflows/CI/badge.svg?branch=master)
 
 [Stack](https://docs.haskellstack.org/en/stable/README/) plugin for
